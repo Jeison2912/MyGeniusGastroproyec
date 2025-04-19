@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mygeniusgastroproyec.R
-import com.example.mygeniusgastroproyec.data.FavoritosManager
 import com.example.mygeniusgastroproyec.ui.RecetaAdapter
 import com.example.mygeniusgastroproyec.ui.home.Receta
 

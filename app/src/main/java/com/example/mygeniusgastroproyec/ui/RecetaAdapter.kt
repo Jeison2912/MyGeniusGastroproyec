@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mygeniusgastroproyec.R
-import com.example.mygeniusgastroproyec.data.FavoritosManager
+import com.example.mygeniusgastroproyec.ui.favorite.FavoritosManager
 import com.example.mygeniusgastroproyec.databinding.ItemRecetaBinding
 import com.example.mygeniusgastroproyec.ui.home.DetalleRecetaActivity
 import com.example.mygeniusgastroproyec.ui.home.Receta

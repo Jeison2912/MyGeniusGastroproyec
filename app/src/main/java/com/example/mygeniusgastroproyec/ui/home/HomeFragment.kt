@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mygeniusgastroproyec.R
-import com.example.mygeniusgastroproyec.data.RecetaRepository
+import com.example.mygeniusgastroproyec.data.RecetaEntity
 import com.example.mygeniusgastroproyec.databinding.FragmentHomeBinding
-import com.example.mygeniusgastroproyec.ui.RecetaAdapter
+import com.example.mygeniusgastroproyec.ui.RecetaRoomAdapter
+import com.example.mygeniusgastroproyec.viewmodel.RecetaViewModel
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: RecetaAdapter
-    private lateinit var listaCompleta: MutableList<Receta>
+    private val recetaViewModel: RecetaViewModel by viewModels()
+    private lateinit var adapter: RecetaRoomAdapter
+    private var listaRecetas: List<RecetaEntity> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,85 +33,29 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializa la lista combinada
-        listaCompleta = mutableListOf(
-            Receta(
-                nombre = "Salmon Toscana",
-                descripcion = "Deliciosa receta de salmon con salsa Toscana.",
-                imagenResId = R.drawable.salmon_toscana,
-                ingredientes = "Salmon, Ajo, Aceite, Limón",
-                pasos = "1. Cocinar el salmon. 2. Preparar la salsa Toscana. 3. Servir."
-            ),
-            Receta(
-                nombre = "Ensalada de Frutas",
-                descripcion = "Refrescante ensalada de frutas.",
-                imagenResId = R.drawable.fav1,
-                ingredientes = "Fresas, Manzanas, Uvas, Naranjas",
-                pasos = "1. Cortar las frutas. 2. Mezclar en un bol. 3. Servir."
-            ),
-            Receta(
-                nombre = "Hamburguesa",
-                descripcion = "Receta para hacer una deliciosa hamburguesa.",
-                imagenResId = R.drawable.burger1,
-                ingredientes = "Carne molida, Pan de hamburguesa, Lechuga, Tomate, Queso",
-                pasos = "1. Cocinar la carne. 2. Montar la hamburguesa. 3. Servir."
-            )
-        )
-
-        // Agrega recetas creadas por el usuario
-        listaCompleta.addAll(RecetaRepository.listaRecetas)
-
-        // Configurar el RecyclerView
-        adapter = RecetaAdapter(requireContext(), listaCompleta)
+        adapter = RecetaRoomAdapter(requireContext())
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
-        // SearchView
+        // Observar recetas desde Room
+        recetaViewModel.todasLasRecetas.observe(viewLifecycleOwner) { recetas ->
+            listaRecetas = recetas
+            adapter.actualizarLista(recetas)
+        }
+
+        // Buscar recetas
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextSubmit(query: String?) = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val texto = newText.orEmpty().lowercase()
-                val listaFiltrada = listaCompleta.filter {
+                val filtradas = listaRecetas.filter {
                     it.nombre.lowercase().contains(texto)
-                }.toMutableList()
-                adapter.updateList(listaFiltrada)
+                }
+                adapter.actualizarLista(filtradas)
                 return true
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        // Recarga recetas al volver al fragmento
-        listaCompleta = mutableListOf(
-            Receta(
-                nombre = "Salmon Toscana",
-                descripcion = "Deliciosa receta de salmon con salsa Toscana.",
-                imagenResId = R.drawable.salmon_toscana,
-                ingredientes = "Salmon, Ajo, Aceite, Limón",
-                pasos = "1. Cocinar el salmon. 2. Preparar la salsa Toscana. 3. Servir."
-            ),
-            Receta(
-                nombre = "Ensalada de Frutas",
-                descripcion = "Refrescante ensalada de frutas.",
-                imagenResId = R.drawable.fav1,
-                ingredientes = "Fresas, Manzanas, Uvas, Naranjas",
-                pasos = "1. Cortar las frutas. 2. Mezclar en un bol. 3. Servir."
-            ),
-            Receta(
-                nombre = "Hamburguesa",
-                descripcion = "Receta para hacer una deliciosa hamburguesa.",
-                imagenResId = R.drawable.burger1,
-                ingredientes = "Carne molida, Pan de hamburguesa, Lechuga, Tomate, Queso",
-                pasos = "1. Cocinar la carne. 2. Montar la hamburguesa. 3. Servir."
-            )
-        ).apply {
-            addAll(RecetaRepository.listaRecetas)
-        }
-
-        adapter.updateList(listaCompleta)
     }
 
     override fun onDestroyView() {
@@ -117,3 +63,4 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
+

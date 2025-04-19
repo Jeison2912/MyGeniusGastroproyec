@@ -1,4 +1,4 @@
-package com.example.mygeniusgastroproyec.data
+package com.example.mygeniusgastroproyec.ui.favorite
 
 import android.content.Context
 import android.util.Log

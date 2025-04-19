@@ -12,9 +12,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.mygeniusgastroproyec.R
-import com.example.mygeniusgastroproyec.data.RecetaRepository
-import com.example.mygeniusgastroproyec.ui.home.Receta
+import com.example.mygeniusgastroproyec.data.RecetaEntity
+import com.example.mygeniusgastroproyec.utils.SessionManager
+import com.example.mygeniusgastroproyec.viewmodel.RecetaViewModel
 
 class AgregarFragment : Fragment() {
 
@@ -25,6 +27,8 @@ class AgregarFragment : Fragment() {
     private lateinit var imageView: ImageView
 
     private var imagenUri: Uri? = null
+
+    private val recetaViewModel: RecetaViewModel by viewModels()
 
     private val imagePicker = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
@@ -66,23 +70,27 @@ class AgregarFragment : Fragment() {
         val nombre = editNombre.text.toString().trim()
         val ingredientes = editIngredientes.text.toString().trim()
         val preparacion = editPreparacion.text.toString().trim()
-        val imagenUriString = imagenUri?.toString() // Evita crash si es null
+        val imagenUriString = imagenUri?.toString() ?: ""
+
+        // Obtenemos el usuario actual desde SessionManager
+        val autor = SessionManager.getUsuario(requireContext())
 
         if (nombre.isEmpty() || ingredientes.isEmpty() || preparacion.isEmpty()) {
             Toast.makeText(requireContext(), "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
         } else {
-            RecetaRepository.listaRecetas.add(
-                Receta(
-                    nombre = nombre,
-                    descripcion = "Agregada por el usuario",
-                    ingredientes = ingredientes,
-                    pasos = preparacion,
-                    imagenUri = imagenUriString
-                )
+            val receta = RecetaEntity(
+                nombre = nombre,
+                ingredientes = ingredientes,
+                preparacion = preparacion,
+                imagenUri = imagenUriString,
+                autor = autor // 👈 Guardamos el autor de la receta
             )
+
+            recetaViewModel.insertar(receta)
 
             Toast.makeText(requireContext(), "Receta guardada: $nombre", Toast.LENGTH_SHORT).show()
 
+            // Limpiar campos
             editNombre.text.clear()
             editIngredientes.text.clear()
             editPreparacion.text.clear()

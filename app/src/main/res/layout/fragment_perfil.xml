@@ -16,10 +16,13 @@
             android:layout_height="100dp"
             android:src="@drawable/perfil"
             android:contentDescription="@string/todo"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="32dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <EditText
             android:id="@+id/editNombre"

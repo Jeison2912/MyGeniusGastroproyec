@@ -1,7 +1,22 @@
 package com.example.mygeniusgastroproyec.data
 
-import com.example.mygeniusgastroproyec.ui.home.Receta
+import androidx.lifecycle.LiveData
 
-object RecetaRepository {
-    val listaRecetas = mutableListOf<Receta>()
+class RecetaRepository(private val recetaDao: RecetaDao) {
+
+    val todasLasRecetas: LiveData<List<RecetaEntity>> = recetaDao.obtenerTodas()
+
+    suspend fun insertar(receta: RecetaEntity) {
+        recetaDao.insertar(receta)
+    }
+
+    suspend fun actualizar(receta: RecetaEntity) {
+        recetaDao.actualizar(receta)
+    }
+
+    suspend fun eliminarPorId(id: Int) {
+        recetaDao.eliminarPorId(id)
+    }
 }
+
+

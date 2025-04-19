@@ -10,13 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Imagen principal -->
         <ImageView
-            android:layout_marginTop="70dp"
             android:id="@+id/imageDetalle"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginTop="70dp"
             android:scaleType="centerCrop" />
 
+        <!-- Ícono favorito decorativo -->
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="120dp"
@@ -25,55 +27,80 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/favo" />
 
+        <!-- Título -->
         <TextView
             android:id="@+id/textTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/white" />
 
+        <!-- Descripción -->
         <TextView
             android:id="@+id/textDescripcion"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/white" />
 
+        <!-- Ingredientes -->
         <TextView
             android:text="Ingredientes:"
             android:textStyle="bold"
-            android:layout_marginTop="15dp"
             android:textSize="30sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"/>
-
-
-        <TextView
-            android:id="@+id/textIngredientes"
-            android:layout_marginTop="4dp"
-            android:textSize="10sp"
             android:textColor="@color/white"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/textIngredientes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:textColor="@color/white" />
+
+        <!-- Pasos -->
+        <TextView
             android:text="Pasos:"
             android:textStyle="bold"
-            android:layout_marginTop="15dp"
             android:textSize="20sp"
             android:textColor="@color/white"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textPasos"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white" />
+
+        <!-- Botones (Editar / Eliminar) -->
+
+        <Button
+            android:id="@+id/btnEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/teal_700"
+            android:text="Editar"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </ScrollView>

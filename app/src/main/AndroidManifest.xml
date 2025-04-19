@@ -13,7 +13,6 @@
         android:theme="@style/Theme.MyGeniusGastroProyec"
         tools:targetApi="34">
 
-        <!-- Pantallas SIN barra superior -->
         <activity
             android:name=".ui.auth.LoginActivity"
             android:theme="@style/Theme.MyGeniusGastroProyec.NoActionBar" />
@@ -22,8 +21,11 @@
             android:name=".ui.auth.RegistroActivity"
             android:theme="@style/Theme.MyGeniusGastroProyec.NoActionBar" />
 
-        <!-- Otras actividades -->
         <activity android:name=".ui.home.DetalleRecetaActivity" />
+
+        <!-- ✅ AGREGA ESTA -->
+        <activity android:name=".ui.home.EditarRecetaActivity"
+            android:theme="@style/Theme.MyGeniusGastroProyec.NoActionBar"/>
 
         <activity
             android:name=".MainActivity"
