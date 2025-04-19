@@ -24,7 +24,7 @@ class FavoritosManager(private val context: Context) {
             }
         } catch (e: Exception) {
             Log.e("FavoritosManager", "Error al leer JSON: ${e.message}")
-            mutableListOf() // Si hay error, comenzamos con lista vacía
+            mutableListOf()
         }
 
         recetas.add(receta)
@@ -47,9 +47,33 @@ class FavoritosManager(private val context: Context) {
             }
         } catch (e: Exception) {
             Log.e("FavoritosManager", "Error al cargar favoritos: ${e.message}")
-            // Limpiar datos corruptos si falla
             editor.remove("recetas").apply()
             mutableListOf()
         }
     }
+
+    // 🚨 Nuevo método: Eliminar receta de favoritos
+    fun eliminarFavorito(receta: Receta) {
+        val gson = Gson()
+        val recetasJson = sharedPreferences.getString("recetas", null)
+        val recetasListType = object : TypeToken<MutableList<Receta>>() {}.type
+        val recetas: MutableList<Receta> = try {
+            if (recetasJson != null) {
+                gson.fromJson(recetasJson, recetasListType)
+            } else {
+                mutableListOf()
+            }
+        } catch (e: Exception) {
+            Log.e("FavoritosManager", "Error al leer JSON para eliminar: ${e.message}")
+            mutableListOf()
+        }
+
+        // Eliminar por nombre (puedes cambiarlo si tienes un ID único)
+        recetas.removeAll { it.nombre == receta.nombre }
+
+        val updatedJson = gson.toJson(recetas)
+        editor.putString("recetas", updatedJson)
+        editor.apply()
+    }
 }
+

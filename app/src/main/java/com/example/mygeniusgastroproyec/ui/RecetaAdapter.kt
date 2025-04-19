@@ -14,7 +14,9 @@ import com.example.mygeniusgastroproyec.ui.home.Receta
 
 class RecetaAdapter(
     private val context: Context,
-    private val recetas: MutableList<Receta>
+    private val recetas: MutableList<Receta>,
+    private val modoFavoritos: Boolean = false,
+    private val onFavoritoEliminado: ((Receta) -> Unit)? = null
 ) : RecyclerView.Adapter<RecetaAdapter.RecetaViewHolder>() {
 
     private val favoritosManager = FavoritosManager(context)
@@ -25,18 +27,16 @@ class RecetaAdapter(
         fun bind(receta: Receta) {
             binding.textNombreReceta.text = receta.nombre
 
-            // 🛠 Manejo seguro del recurso de imagen
             try {
                 if (receta.imagenResId != 0) {
                     binding.imageview.setImageResource(receta.imagenResId)
                 } else {
-                    binding.imageview.setImageResource(R.drawable.fav1) // imagen por defecto
+                    binding.imageview.setImageResource(R.drawable.fav1)
                 }
             } catch (e: Exception) {
-                binding.imageview.setImageResource(R.drawable.fav1) // imagen de respaldo si falla
+                binding.imageview.setImageResource(R.drawable.fav1)
             }
 
-            // Click para ver detalles
             binding.root.setOnClickListener {
                 val intent = Intent(context, DetalleRecetaActivity::class.java).apply {
                     putExtra("nombre", receta.nombre)
@@ -48,10 +48,28 @@ class RecetaAdapter(
                 context.startActivity(intent)
             }
 
-            // Click para añadir a favoritos
-            binding.favoritoButton.setOnClickListener {
-                favoritosManager.guardarFavorito(receta)
-                Toast.makeText(context, "${receta.nombre} añadido a tus favoritos", Toast.LENGTH_SHORT).show()
+            // Cambiar ícono y acción según el modo
+            if (modoFavoritos) {
+                binding.favoritoButton.setImageResource(R.drawable.eliminar)
+                binding.favoritoButton.setOnClickListener {
+                    favoritosManager.eliminarFavorito(receta)
+                    Toast.makeText(context, "${receta.nombre} eliminado de favoritos", Toast.LENGTH_SHORT).show()
+                    onFavoritoEliminado?.invoke(receta)
+                }
+            } else {
+                val yaEsFavorito = favoritosManager.obtenerFavoritos().any { it.nombre == receta.nombre }
+                val icon = if (yaEsFavorito) R.drawable.lleno else R.drawable.vacio
+                binding.favoritoButton.setImageResource(icon)
+
+                binding.favoritoButton.setOnClickListener {
+                    if (!yaEsFavorito) {
+                        favoritosManager.guardarFavorito(receta)
+                        Toast.makeText(context, "${receta.nombre} añadido a tus favoritos", Toast.LENGTH_SHORT).show()
+                        binding.favoritoButton.setImageResource(R.drawable.lleno)
+                    } else {
+                        Toast.makeText(context, "${receta.nombre} ya está en tus favoritos", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
