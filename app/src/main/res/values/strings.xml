@@ -27,5 +27,9 @@
     <string name="fondo_de_login">Fondo de login</string>
     <string name="cerrar_sesion">Cerrar sesión</string>
     <string name="GeniusGastro">GeniusGastro</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="preparaci_n">Preparación</string>
+    <string name="ingredientes1">Ingredientes</string>
+    <string name="nombre_de_la_receta_">Nombre de la receta</string>
 
 </resources>

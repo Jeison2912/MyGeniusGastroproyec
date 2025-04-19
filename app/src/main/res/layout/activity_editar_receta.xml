@@ -20,28 +20,45 @@
             android:id="@+id/editNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre de la receta"
-            android:layout_marginTop="16dp"/>
+            android:hint="@string/nombre_de_la_receta_"
+            android:minHeight="48dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:backgroundTint="#CCCCCC"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"/>
+
 
         <EditText
             android:id="@+id/editIngredientes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingredientes"
-            android:layout_marginTop="8dp"/>
+            android:hint="@string/ingredientes1"
+            android:minHeight="48dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:backgroundTint="#CCCCCC"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"/>
 
         <EditText
             android:id="@+id/editPreparacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Preparación"
-            android:layout_marginTop="8dp"/>
+            android:hint="@string/preparaci_n"
+            android:minHeight="48dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:backgroundTint="#CCCCCC"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"/>
+
 
         <Button
             android:id="@+id/btnActualizar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Actualizar"
+            android:text="@string/actualizar"
             android:layout_marginTop="16dp"/>
     </LinearLayout>
 </ScrollView>
