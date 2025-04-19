@@ -7,17 +7,14 @@
     android:padding="16dp"
     android:background="@color/mediumgray">
 
-
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_bg"
-        android:drawableStart="@drawable/busqueda1"
-        android:fontFamily="@font/amita"
         android:queryHint="Buscar receta..."
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:iconifiedByDefault="false"
+        android:background="@drawable/search_bg"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/textBienvenida"
@@ -30,9 +27,8 @@
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="6dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp" />
+        android:layout_margin="6dp" />
 </LinearLayout>

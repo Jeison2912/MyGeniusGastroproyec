@@ -8,43 +8,44 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mygeniusgastroproyec.R
 import com.example.mygeniusgastroproyec.data.RecetaEntity
-import com.example.mygeniusgastroproyec.databinding.FragmentHomeBinding
 import com.example.mygeniusgastroproyec.ui.RecetaRoomAdapter
 import com.example.mygeniusgastroproyec.viewmodel.RecetaViewModel
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-
     private val recetaViewModel: RecetaViewModel by viewModels()
     private lateinit var adapter: RecetaRoomAdapter
     private var listaRecetas: List<RecetaEntity> = emptyList()
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = RecetaRoomAdapter(requireContext())
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
+        recyclerView = view.findViewById(R.id.recyclerView)
+        searchView = view.findViewById(R.id.searchView)
 
-        // Observar recetas desde Room
+        adapter = RecetaRoomAdapter(requireContext())
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
         recetaViewModel.todasLasRecetas.observe(viewLifecycleOwner) { recetas ->
             listaRecetas = recetas
             adapter.actualizarLista(recetas)
         }
 
-        // Buscar recetas
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -56,11 +57,12 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        // Cambiar color del texto del SearchView
+        val searchText = searchView.findViewById<android.widget.AutoCompleteTextView>(
+            androidx.appcompat.R.id.search_src_text
+        )
+        searchText.setTextColor(resources.getColor(android.R.color.white, null))
+        searchText.setHintTextColor(resources.getColor(android.R.color.darker_gray, null))
     }
 }
-
