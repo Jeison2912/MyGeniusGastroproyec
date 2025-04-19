@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     // Gson
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.google.code.gson:gson:2.13.0")
 
     // ROOM (base de datos local)
     implementation("androidx.room:room-runtime:2.6.1")
