@@ -58,7 +58,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-        // Cambiar color del texto del SearchView
         val searchText = searchView.findViewById<android.widget.AutoCompleteTextView>(
             androidx.appcompat.R.id.search_src_text
         )

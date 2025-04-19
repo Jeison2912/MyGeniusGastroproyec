@@ -72,7 +72,6 @@ class AgregarFragment : Fragment() {
         val preparacion = editPreparacion.text.toString().trim()
         val imagenUriString = imagenUri?.toString() ?: ""
 
-        // Obtenemos el usuario actual desde SessionManager
         val autor = SessionManager.getUsuario(requireContext())
 
         if (nombre.isEmpty() || ingredientes.isEmpty() || preparacion.isEmpty()) {
@@ -90,7 +89,6 @@ class AgregarFragment : Fragment() {
 
             Toast.makeText(requireContext(), "Receta guardada: $nombre", Toast.LENGTH_SHORT).show()
 
-            // Limpiar campos
             editNombre.text.clear()
             editIngredientes.text.clear()
             editPreparacion.text.clear()

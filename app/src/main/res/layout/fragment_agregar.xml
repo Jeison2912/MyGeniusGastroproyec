@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/mediumgray">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Imagen para seleccionar desde galería -->
+
         <ImageView
             android:id="@+id/adjuntar"
             android:layout_width="100dp"
@@ -22,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Campo: Nombre de la receta -->
+
         <EditText
             android:id="@+id/editNombreReceta"
             android:layout_width="0dp"
@@ -31,12 +32,14 @@
             android:layout_marginTop="40dp"
             android:inputType="textPersonName"
             android:textSize="18sp"
+            android:textColor="@color/white"
+            android:backgroundTint="#CCCCCC"
+            android:textColorHint="@color/white"
             android:hint="@string/nombre_de_la_receta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/adjuntar" />
 
-        <!-- Campo: Ingredientes -->
         <EditText
             android:id="@+id/editIngredientes"
             android:layout_width="0dp"
@@ -45,6 +48,9 @@
             android:hint="@string/ingredientes"
             android:inputType="textMultiLine"
             android:minLines="4"
+            android:textColor="@color/white"
+            android:backgroundTint="#CCCCCC"
+            android:textColorHint="@color/white"
             android:gravity="top"
             android:textSize="18sp"
             android:layout_marginTop="16dp"
@@ -52,7 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Campo: Preparación -->
+
         <EditText
             android:id="@+id/editPreparacion"
             android:layout_width="0dp"
@@ -62,13 +68,16 @@
             android:inputType="textMultiLine"
             android:minLines="6"
             android:gravity="top"
+            android:textColor="@color/white"
+            android:backgroundTint="#CCCCCC"
+            android:textColorHint="@color/white"
             android:textSize="18sp"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/editIngredientes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Botón Guardar -->
+
         <Button
             android:id="@+id/btnGuardarReceta"
             android:layout_width="wrap_content"

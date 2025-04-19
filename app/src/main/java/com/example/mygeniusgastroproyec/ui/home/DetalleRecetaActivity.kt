@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mygeniusgastroproyec.R
-import com.example.mygeniusgastroproyec.ui.home.EditarRecetaActivity
 import com.example.mygeniusgastroproyec.utils.SessionManager
 import com.example.mygeniusgastroproyec.viewmodel.RecetaViewModel
 import java.io.FileNotFoundException
@@ -25,7 +24,7 @@ class DetalleRecetaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_receta)
 
-        // Obtener extras
+
         val nombre = intent.getStringExtra("nombre") ?: "Sin nombre"
         val descripcion = intent.getStringExtra("descripcion") ?: "Sin descripción"
         val ingredientes = intent.getStringExtra("ingredientes") ?: "Sin ingredientes"
@@ -37,7 +36,6 @@ class DetalleRecetaActivity : AppCompatActivity() {
 
         val usuarioActual = SessionManager.getUsuario(this)
 
-        // Enlazar vistas
         val imagenReceta: ImageView = findViewById(R.id.imageDetalle)
         val tituloReceta: TextView = findViewById(R.id.textTitulo)
         val descripcionReceta: TextView = findViewById(R.id.textDescripcion)
@@ -46,13 +44,11 @@ class DetalleRecetaActivity : AppCompatActivity() {
         val btnEliminar: Button = findViewById(R.id.btnEliminar)
         val btnEditar: Button = findViewById(R.id.btnEditar)
 
-        // Asignar valores
         tituloReceta.text = nombre
         descripcionReceta.text = descripcion
         ingredientesReceta.text = ingredientes
         pasosReceta.text = pasos
 
-        // Mostrar imagen desde URI o recurso
         if (!imagenUri.isNullOrEmpty()) {
             try {
                 val uri = Uri.parse(imagenUri)
@@ -68,7 +64,6 @@ class DetalleRecetaActivity : AppCompatActivity() {
             imagenReceta.setImageResource(R.drawable.fav1)
         }
 
-        // Mostrar botones solo si el usuario es el autor
         if (autor == usuarioActual && recetaId != -1) {
             btnEditar.visibility = View.VISIBLE
             btnEliminar.visibility = View.VISIBLE
@@ -77,14 +72,12 @@ class DetalleRecetaActivity : AppCompatActivity() {
             btnEliminar.visibility = View.GONE
         }
 
-        // Acción de Eliminar
         btnEliminar.setOnClickListener {
             recetaViewModel.eliminarPorId(recetaId)
             Toast.makeText(this, "Receta eliminada", Toast.LENGTH_SHORT).show()
             finish()
         }
 
-        // Acción de Editar
         btnEditar.setOnClickListener {
             val intent = Intent(this, EditarRecetaActivity::class.java).apply {
                 putExtra("id", recetaId)

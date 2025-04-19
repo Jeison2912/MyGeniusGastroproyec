@@ -11,7 +11,7 @@ class FavoritosManager(private val context: Context) {
     private val sharedPreferences = context.getSharedPreferences("favoritos", Context.MODE_PRIVATE)
     private val editor = sharedPreferences.edit()
 
-    // Guardar receta en favoritos (almacenar todos los datos)
+
     fun guardarFavorito(receta: Receta) {
         val gson = Gson()
         val recetasJson = sharedPreferences.getString("recetas", null)
@@ -33,7 +33,7 @@ class FavoritosManager(private val context: Context) {
         editor.apply()
     }
 
-    // Obtener todas las recetas favoritas
+
     fun obtenerFavoritos(): MutableList<Receta> {
         val gson = Gson()
         val recetasJson = sharedPreferences.getString("recetas", null)
@@ -52,7 +52,6 @@ class FavoritosManager(private val context: Context) {
         }
     }
 
-    // 🚨 Nuevo método: Eliminar receta de favoritos
     fun eliminarFavorito(receta: Receta) {
         val gson = Gson()
         val recetasJson = sharedPreferences.getString("recetas", null)
@@ -68,7 +67,6 @@ class FavoritosManager(private val context: Context) {
             mutableListOf()
         }
 
-        // Eliminar por nombre (puedes cambiarlo si tienes un ID único)
         recetas.removeAll { it.nombre == receta.nombre }
 
         val updatedJson = gson.toJson(recetas)

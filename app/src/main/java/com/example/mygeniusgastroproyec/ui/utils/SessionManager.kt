@@ -17,7 +17,7 @@ object SessionManager {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
 
-    // Guardar todo al registrarse
+
     fun saveUser(context: Context, username: String, password: String) {
         getPrefs(context).edit()
             .putString(KEY_USERNAME, username)
@@ -25,7 +25,7 @@ object SessionManager {
             .apply()
     }
 
-    // Guardar valores individuales
+
     fun saveUsuario(context: Context, username: String) {
         getPrefs(context).edit().putString(KEY_USERNAME, username).apply()
     }
@@ -46,7 +46,7 @@ object SessionManager {
         getPrefs(context).edit().putString(KEY_IMAGEN, uri).apply()
     }
 
-    // Obtener valores
+
     fun getUsuario(context: Context): String {
         return getPrefs(context).getString(KEY_USERNAME, "") ?: ""
     }
@@ -67,7 +67,7 @@ object SessionManager {
         return getPrefs(context).getString(KEY_IMAGEN, "") ?: ""
     }
 
-    // Manejo de sesión
+
     fun setLoggedIn(context: Context, value: Boolean) {
         getPrefs(context).edit().putBoolean(KEY_LOGGED_IN, value).apply()
     }
@@ -76,7 +76,6 @@ object SessionManager {
         return getPrefs(context).getBoolean(KEY_LOGGED_IN, false)
     }
 
-    // Cerrar sesión
     fun logout(context: Context) {
         getPrefs(context).edit().clear().apply()
     }

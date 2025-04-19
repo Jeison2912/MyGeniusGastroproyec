@@ -23,7 +23,7 @@ class RecetaRoomAdapter(private val context: Context) :
         fun bind(receta: RecetaEntity) {
             binding.textNombreReceta.text = receta.nombre
 
-            // Mostrar imagen desde URI (si hay)
+
             try {
                 if (receta.imagenUri.isNotEmpty()) {
                     val uri = Uri.parse(receta.imagenUri)
@@ -37,7 +37,6 @@ class RecetaRoomAdapter(private val context: Context) :
                 binding.imageview.setImageResource(android.R.drawable.ic_menu_gallery)
             }
 
-            // Navegar al detalle con todos los extras
             binding.root.setOnClickListener {
                 val intent = Intent(context, DetalleRecetaActivity::class.java).apply {
                     putExtra("nombre", receta.nombre)
@@ -51,7 +50,6 @@ class RecetaRoomAdapter(private val context: Context) :
                 context.startActivity(intent)
             }
 
-            // Ocultar botón de favoritos si estás reutilizando el layout
             binding.favoritoButton.setImageResource(0)
         }
     }

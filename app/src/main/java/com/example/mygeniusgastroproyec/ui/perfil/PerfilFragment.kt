@@ -16,7 +16,6 @@ class PerfilFragment : Fragment() {
     private var _binding: FragmentPerfilBinding? = null
     private val binding get() = _binding!!
 
-    // Lanzador de selección de imagen desde la galería
     private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
             SessionManager.saveImagenPerfil(requireContext(), it.toString())
@@ -45,12 +44,10 @@ class PerfilFragment : Fragment() {
             binding.imagePerfil.setImageURI(Uri.parse(imagenUri))
         }
 
-        // Permitir cambiar la foto al tocar la imagen
         binding.imagePerfil.setOnClickListener {
             imagePickerLauncher.launch("image/*")
         }
 
-        // Guardar cambios de perfil
         binding.buttonEditarPerfil.setOnClickListener {
             val nuevoNombre = binding.editNombre.text.toString().trim()
             val nuevoEmail = binding.editEmail.text.toString().trim()

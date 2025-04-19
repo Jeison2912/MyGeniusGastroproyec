@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Si ya está logueado, ir directo al Main
+
         if (SessionManager.isLoggedIn(this)) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()

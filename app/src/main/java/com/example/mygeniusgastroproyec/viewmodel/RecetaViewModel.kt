@@ -20,7 +20,7 @@ class RecetaViewModel(application: Application) : AndroidViewModel(application) 
         repository = RecetaRepository(recetaDao)
         todasLasRecetas = repository.todasLasRecetas
 
-        // Insertar recetas predefinidas al iniciar si es necesario
+
         insertarRecetasPredefinidas()
     }
 

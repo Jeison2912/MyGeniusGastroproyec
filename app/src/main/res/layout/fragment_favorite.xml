@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.favorite.FavoriteFragment">
 
-    <!-- RecyclerView donde se mostrarán las recetas favoritas -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFavoritos"
         android:layout_width="match_parent"
@@ -19,8 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto que aparece cuando la lista está vacía -->
-    <TextView
+        <TextView
         android:id="@+id/textEmptyFavorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

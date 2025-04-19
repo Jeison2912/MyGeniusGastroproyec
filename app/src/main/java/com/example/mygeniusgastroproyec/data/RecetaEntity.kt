@@ -9,6 +9,6 @@ data class RecetaEntity(
     val ingredientes: String,
     val preparacion: String,
     val imagenUri: String,
-    val autor: String // 👈 Este campo es obligatorio si lo tienes en el constructor
+    val autor: String
 )
 
