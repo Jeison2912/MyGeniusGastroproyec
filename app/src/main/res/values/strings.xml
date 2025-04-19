@@ -24,5 +24,7 @@
     <string name="ingredientes">Ingredientes</string>
     <string name="preparacion">Preparación</string>
     <string name="guardar_receta">Guardar receta</string>
+    <string name="fondo_de_login">Fondo de login</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
 
 </resources>

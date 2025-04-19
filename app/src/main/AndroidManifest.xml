@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <!-- Ningún permiso necesario si usas GetContent() -->
 
     <application
         android:allowBackup="true"
@@ -14,6 +13,16 @@
         android:theme="@style/Theme.MyGeniusGastroProyec"
         tools:targetApi="34">
 
+        <!-- Pantallas SIN barra superior -->
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:theme="@style/Theme.MyGeniusGastroProyec.NoActionBar" />
+
+        <activity
+            android:name=".ui.auth.RegistroActivity"
+            android:theme="@style/Theme.MyGeniusGastroProyec.NoActionBar" />
+
+        <!-- Otras actividades -->
         <activity android:name=".ui.home.DetalleRecetaActivity" />
 
         <activity
@@ -31,4 +40,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
 </manifest>

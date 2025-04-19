@@ -21,4 +21,10 @@
             android:icon="@drawable/infinito"
             android:title="@string/menu_agregar" />
     </group>
+
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/salida"
+        android:title="@string/cerrar_sesion" />
 </menu>
