@@ -2,6 +2,7 @@ package com.example.mygeniusgastroproyec.ui
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -28,7 +29,10 @@ class RecetaAdapter(
             binding.textNombreReceta.text = receta.nombre
 
             try {
-                if (receta.imagenResId != 0) {
+                if (!receta.imagenUri.isNullOrEmpty()) {
+                    val uri = Uri.parse(receta.imagenUri)
+                    binding.imageview.setImageURI(uri)
+                } else if (receta.imagenResId != 0) {
                     binding.imageview.setImageResource(receta.imagenResId)
                 } else {
                     binding.imageview.setImageResource(R.drawable.fav1)
@@ -44,11 +48,11 @@ class RecetaAdapter(
                     putExtra("ingredientes", receta.ingredientes)
                     putExtra("pasos", receta.pasos)
                     putExtra("imagenResId", receta.imagenResId)
+                    putExtra("imagenUri", receta.imagenUri)
                 }
                 context.startActivity(intent)
             }
 
-            // Cambiar ícono y acción según el modo
             if (modoFavoritos) {
                 binding.favoritoButton.setImageResource(R.drawable.eliminar)
                 binding.favoritoButton.setOnClickListener {
