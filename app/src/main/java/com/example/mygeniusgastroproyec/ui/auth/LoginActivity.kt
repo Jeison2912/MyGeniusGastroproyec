@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
             val usuario = editUsuario.text.toString()
             val password = editPassword.text.toString()
 
-            if (usuario == SessionManager.getUsername(this) && password == SessionManager.getPassword(this)) {
+            if (usuario == SessionManager.getUsuario(this) && password == SessionManager.getPassword(this)) {
                 SessionManager.setLoggedIn(this, true)
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()

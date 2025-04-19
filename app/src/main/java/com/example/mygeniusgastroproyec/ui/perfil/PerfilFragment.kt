@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mygeniusgastroproyec.databinding.FragmentPerfilBinding
+import com.example.mygeniusgastroproyec.utils.SessionManager
 
 class PerfilFragment : Fragment() {
 
@@ -18,27 +17,37 @@ class PerfilFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPerfilBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val root = binding.root
 
-        // EditText para Nombre, Email y Descripción
-        val editNombre: EditText = binding.editNombre
-        val editEmail: EditText = binding.editEmail
-        val editDescripcion: EditText = binding.editDescripcion
+        // Cargar los datos guardados (nombre, email y descripción)
+        val nombreGuardado = SessionManager.getUsuario(requireContext())
+        val emailGuardado = SessionManager.getEmail(requireContext())
+        val descripcionGuardada = SessionManager.getDescripcion(requireContext())
 
-        // Botón para editar perfil
-        val buttonEditarPerfil: Button = binding.buttonEditarPerfil
+        // Mostrar en los campos
+        binding.editNombre.setText(nombreGuardado)
+        binding.editEmail.setText(emailGuardado)
+        binding.editDescripcion.setText(descripcionGuardada)
 
-        // Acción del botón "Editar Perfil"
-        buttonEditarPerfil.setOnClickListener {
-            // Cambiar los EditText a editables
-            editNombre.isFocusableInTouchMode = true
-            editEmail.isFocusableInTouchMode = true
-            editDescripcion.isFocusableInTouchMode = true
+        // Botón para guardar cambios
+        binding.buttonEditarPerfil.setOnClickListener {
+            val nuevoNombre = binding.editNombre.text.toString().trim()
+            val nuevoEmail = binding.editEmail.text.toString().trim()
+            val nuevaDesc = binding.editDescripcion.text.toString().trim()
 
-            // Mostrar un mensaje para indicar que la edición está habilitada
-            Toast.makeText(requireContext(), "Ahora puedes editar tu perfil", Toast.LENGTH_SHORT).show()
+            if (nuevoNombre.isEmpty() || nuevoEmail.isEmpty()) {
+                Toast.makeText(requireContext(), "Completa al menos nombre y correo", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Guardar en SharedPreferences
+            SessionManager.saveUsuario(requireContext(), nuevoNombre)
+            SessionManager.saveEmail(requireContext(), nuevoEmail)
+            SessionManager.saveDescripcion(requireContext(), nuevaDesc)
+
+            Toast.makeText(requireContext(), "Perfil actualizado con éxito", Toast.LENGTH_SHORT).show()
         }
 
         return root
